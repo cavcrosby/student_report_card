@@ -21,5 +21,4 @@ bool is_valid_input(const std::string &users_input);
 void ClearScreen();
 
 
-
 #endif //STUDENT_REPORT_CARD_MAIN_MENU_H
