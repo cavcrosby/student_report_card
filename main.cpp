@@ -13,6 +13,7 @@ int main() {
         if(!is_valid_input(input))
             continue;
 
+
         // TODO ADD OTHER OPTIONS' FUNCTIONALITY...
         done = true;
     } while (!done);

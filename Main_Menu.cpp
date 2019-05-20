@@ -52,6 +52,7 @@ bool is_valid_input(const std::string &users_input){
     return true;
 }
 
+
 // credit to http://www.cplusplus.com/articles/4z18T05o/#Windows for API code
 void ClearScreen()
 {
