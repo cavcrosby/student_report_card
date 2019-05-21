@@ -10,6 +10,7 @@
 #define STUDENT_REPORT_CARD_HANDLING_H
 
 Student_Record create_student_record();
+std::map<const std::string, char> get_grade_book();
 void display_all_student_records_info(const std::vector<Student_Record>);
 void display_student_info(const std::vector<Student_Record>);
 void display_all_student_records_grades(const std::vector<Student_Record>);
