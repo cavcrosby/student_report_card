@@ -14,8 +14,9 @@ void print_ruler(){
     std::cout << std::endl;
 }
 
-void print_menu(){
+void print_menu(const int total_width){
 //    print_ruler();
+    const int space_divider {4};
     std::string title {"===== STUDENT REPORT-CARD MANAGEMENT SYSTEM ====="};
 
     std::cout << std::setw((total_width - title.size())/2) << " " << title << std::endl; // we want to have roughly even sides for title
@@ -31,13 +32,21 @@ void print_menu(){
     std::cout << std::left << std::setw(total_width/space_divider) << " " << "Select Your Choice :=> ";
 }
 
+void print_success_and_menu(const int total_width){
+    ClearScreen();
+    std::string success_message {"########### Successfully completed task! ###########"};
+    std::cout << std::setw((total_width - success_message.size())/2) << " " << success_message << std::endl;
+    print_menu(total_width);
+}
+
 std::string get_input(){
     std::string users_input{};
     std::getline(std::cin, users_input);
     return users_input;
 }
 
-bool is_valid_input(const std::string &users_input){
+bool is_valid_input(const std::string &users_input, const int total_width){
+    const int total_num_options {7};
     size_t value {};
     std::istringstream iss{users_input};
     bool valid_input {iss >> value};
@@ -45,11 +54,42 @@ bool is_valid_input(const std::string &users_input){
         ClearScreen();
         std::string error_msg {"########### Invalid input, please try again ###########"};
         std::cout << std::setw((total_width - error_msg.size())/2) << " " << error_msg << std::endl;
-        print_menu();
+        print_menu(total_width);
         return false;
     }
 
     return true;
+}
+
+bool select_option(const std::string &input, const int total_width){
+    switch(std::stoi(input)){
+        case 1:
+            // TODO DEFINE WHAT A STUDENT RECORD NEEDS TO CREATE THE RECORD OBJECT
+            print_success_and_menu(total_width);
+            return false;
+        case 2:
+            // TODO PRINT ALL STUDENT RECORDS OBJECTS FROM A DATA STRUCTURE
+            print_success_and_menu(total_width);
+            return false;
+        case 3:
+            // TODO HOW TO WE MAKE SURE EACH RECORD IS UNIQUE? USE THIS TO FIND SPECFIC STUDENT'S RECORD
+            print_success_and_menu(total_width);
+            return false;
+        case 4:
+            // TODO PRINT ALL STUDENT's GRADES IN ALL SUBJECTS
+            print_success_and_menu(total_width);
+            return false;
+        case 5:
+            // TODO HOW TO WE MAKE SURE EACH RECORD IS UNIQUE? USE THIS TO FIND SPECFIC STUDENT'S RECORD, ASK WHAT SUBJECT AND THEN GRADE, THEN WRITE
+            print_success_and_menu(total_width);
+            return false;
+        case 6:
+            // TODO HOW TO WE MAKE SURE EACH RECORD IS UNIQUE? USE THIS TO FIND SPECFIC STUDENT'S RECORD AND DELETE
+            print_success_and_menu(total_width);
+            return false;
+        default:
+            return true;
+    }
 }
 
 // credit to http://www.cplusplus.com/articles/4z18T05o/#Windows for API code
