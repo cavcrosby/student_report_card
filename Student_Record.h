@@ -31,14 +31,14 @@ public:
             char grade_english = 'X',
             char grade_biology = 'X');
 
-    unsigned int getStudentRollNumber() const;
-    const std::string &getFname() const;
-    const std::string &getLname() const;
-    char getGradePhysics() const;
-    char getGradeChemistry() const;
-    char getGradeMath() const;
-    char getGradeEnglish() const;
-    char getGradeBiology() const;
+    unsigned int get_student_roll_number() const;
+    const std::string &get_fname() const;
+    const std::string &get_lname() const;
+    char get_grade_physics() const;
+    char get_grade_chemistry() const;
+    char get_grade_math() const;
+    char get_grade_english() const;
+    char get_grade_biology() const;
 };
 
 

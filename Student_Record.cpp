@@ -14,35 +14,35 @@ Student_Record::Student_Record(std::string &fname, std::string &lname, unsigned 
     roll_number += 1;
 }
 
-unsigned int Student_Record::getStudentRollNumber() const {
+unsigned int Student_Record::get_student_roll_number() const {
     return student_roll_number;
 }
 
-const std::string &Student_Record::getFname() const {
+const std::string &Student_Record::get_fname() const {
     return fname;
 }
 
-const std::string &Student_Record::getLname() const {
+const std::string &Student_Record::get_lname() const {
     return lname;
 }
 
-char Student_Record::getGradePhysics() const {
+char Student_Record::get_grade_physics() const {
     return grade_physics;
 }
 
-char Student_Record::getGradeChemistry() const {
+char Student_Record::get_grade_chemistry() const {
     return grade_chemistry;
 }
 
-char Student_Record::getGradeMath() const {
+char Student_Record::get_grade_math() const {
     return grade_math;
 }
 
-char Student_Record::getGradeEnglish() const {
+char Student_Record::get_grade_english() const {
     return grade_english;
 }
 
-char Student_Record::getGradeBiology() const {
+char Student_Record::get_grade_biology() const {
     return grade_biology;
 }
 
