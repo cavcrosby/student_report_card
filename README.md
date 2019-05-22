@@ -16,7 +16,7 @@ This terminal application would be geared towards teachers/administrators of stu
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 
-Anything there are any suggestions on what I can add to this page, also do let me know.
+If you have any suggestions on what I can add to this page, also do let me know.
 
 ## License
 
