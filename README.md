@@ -1,6 +1,6 @@
 # student_report_card
 
-**student_report_card** is a terminal based application, used to write and manage report card files of students.
+**student_report_card** is a terminal based application, used to write and manage record files of students.
 
 # Building
 
