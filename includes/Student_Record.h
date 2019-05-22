@@ -1,7 +1,3 @@
-//
-// Created by reap2sow1 on 5/21/2019.
-//
-
 #ifndef STUDENT_REPORT_CARD_STUDENT_RECORD_H
 #define STUDENT_REPORT_CARD_STUDENT_RECORD_H
 

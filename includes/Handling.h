@@ -1,7 +1,3 @@
-//
-// Created by reap2sow1 on 5/21/2019.
-//
-
 #include "Student_Record.h"
 #include <vector>
 

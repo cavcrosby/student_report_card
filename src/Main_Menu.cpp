@@ -1,13 +1,9 @@
-//
-// Created by reap2sow1 on 5/16/2019.
-//
-
-#include "Main_Menu.h"
 #include <iostream>
 #include <iomanip>
 #include <string>
 #include <sstream>
 #include <windows.h>
+#include "Main_Menu.h"
 
 void print_ruler(){
     std::cout << "0123456789012345678901234567890123456789012345678901234567890123456789" << std::endl;

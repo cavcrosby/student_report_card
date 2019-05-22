@@ -1,7 +1,3 @@
-//
-// Created by reap2sow1 on 5/16/2019.
-//
-
 #include <string>
 #include <sstream>
 #include <windows.h>

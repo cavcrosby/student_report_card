@@ -1,7 +1,3 @@
-//
-// Created by reap2sow1 on 5/21/2019.
-//
-
 #include <iostream>
 #include <map>
 #include <vector>
@@ -28,10 +24,10 @@ Student_Record create_student_record(){
         std::string grade {};
         std::cin >> grade;
         std::cout << std::endl;
-        if(!is_grade_valid()){
-            std::cout << "!!! Input is not a valid grade! Grades should be A-F, or n. Please try again." << std::endl;
-            continue;
-        }
+//        if(!is_grade_valid()){
+//            std::cout << "!!! Input is not a valid grade! Grades should be A-F, or n. Please try again." << std::endl;
+//            continue;
+//        }
 
         grade_book[book_it->first] = grade.at(0);
         book_it++;
