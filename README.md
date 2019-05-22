@@ -9,11 +9,9 @@
 
 ## Usage/Description
 
-Currently, **_main_automationscript.py_** (main script refers to this script) does all the heavy lifting, while as answer_db_questions.py is used for interfacing with the database file created from main_automationscript.
+This terminal application would be geared towards teachers/administrators of students' records. I envision that for each record created, a new text file will also be generated in another directory once the program finishes storing the object's data. When that individual re-opens the program, every text-file is read and stored into a data-structure so the individual using the application is aware of all the records that exist.
 
-The main script realies on a headless chrome driver. Iterating over each page, grabbing the jobs that can be applied to, sorts them into the jobs that can be applied via Indeed resume, tries to apply to each job, once trying to apply for each job that can be applied to via Indeed resume the script goes to the next page and repeats.
-
-The **_answer_db_questions.py_** is used to answer questions pulled by the main script, otherwise job(s) may not be applied to unless all questions can are filled out by the script and/or job(s) have no supplemental questions asked.
+**This may change as progress on the project continues**
 
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
