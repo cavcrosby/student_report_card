@@ -83,7 +83,6 @@ bool select_option(const std::string &input, const int total_buffer_width, std::
         case 2:
             ClearScreen();
             if(!display(student_records, total_buffer_width)){
-                std::cout << "There are no student records to print..." << std::endl;
                 print_menu(total_buffer_width);
                 return false;
             }
@@ -96,8 +95,6 @@ bool select_option(const std::string &input, const int total_buffer_width, std::
             std::getline(std::cin, student_record_number);
             ClearScreen();
             if (!display(student_records, total_buffer_width, true, student_record_number)) {
-                std::cout << ((student_records.empty()) ? "There are no student records to print..."
-                : "!!! Could not find student, please make sure you have entered in the right roll number")<< std::endl;
                 print_menu(total_buffer_width);
                 return false;
             }

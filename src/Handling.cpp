@@ -69,6 +69,8 @@ bool is_input_grade_valid(const std::string &grade, const std::vector<char> &val
 bool display(const std::vector<Student_Record> &vec, const int total_buffer_width, bool with_roll_number,
         std::string particular_student){
     if(vec.empty()){
+        std::string message {"########### There are no student records to print... ###########"};
+        std::cout << std::setw((total_buffer_width - message.size())/2) << " " << message << std::endl;
         return false;
     }
     std::vector<Student_Record> iterate_over {vec};
@@ -78,6 +80,8 @@ bool display(const std::vector<Student_Record> &vec, const int total_buffer_widt
     if(particular_student != "All") {
         auto found_it {std::find(vec.begin(), vec.end(), particular_student)};
         if (found_it == vec.end()){
+            std::string message {"########### Could not find student, please make sure you have entered in the right roll number ###########"};
+            std::cout << std::setw((total_buffer_width - message.size())/2) << " " << message << std::endl;
             return false;
         }
         iterate_over.clear();
