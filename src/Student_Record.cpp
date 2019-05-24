@@ -2,11 +2,8 @@
 
 unsigned int Student_Record::roll_number{0};
 
-Student_Record::Student_Record(std::string &fname, std::string &lname, unsigned int student_roll_number,
-                               char grade_physics, char grade_chemistry, char grade_math, char grade_english,
-                               char grade_biology) : fname{fname}, lname{lname}, student_roll_number{student_roll_number},
-                               grade_physics{grade_physics}, grade_chemistry{grade_chemistry}, grade_math{grade_math},
-                               grade_english{grade_english}, grade_biology{grade_biology}{
+Student_Record::Student_Record(std::string &fname, std::string &lname, std::map<const std::string, char> &student_subjects_grade,unsigned int student_roll_number)
+                               : fname{fname}, lname{lname}, student_subjects_grade{student_subjects_grade}, student_roll_number{student_roll_number}{
     roll_number += 1;
 }
 
@@ -22,24 +19,9 @@ const std::string &Student_Record::get_lname() const {
     return lname;
 }
 
-char Student_Record::get_grade_physics() const {
-    return grade_physics;
+const std::map<const std::string, char> &Student_Record::get_grade_book() const{
+    return student_subjects_grade;
 }
 
-char Student_Record::get_grade_chemistry() const {
-    return grade_chemistry;
-}
-
-char Student_Record::get_grade_math() const {
-    return grade_math;
-}
-
-char Student_Record::get_grade_english() const {
-    return grade_english;
-}
-
-char Student_Record::get_grade_biology() const {
-    return grade_biology;
-}
 
 

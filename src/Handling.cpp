@@ -5,8 +5,8 @@
 #include <algorithm>
 #include "Handling.h"
 
-std::map<const std::string, char> getting_student_and_grade_info(){
-    std::vector<char> valid_grades {'A', 'B', 'C', 'D', 'F'};
+Student_Record creating_student_object(){
+    std::vector<char> valid_grades {'A', 'B', 'C', 'D', 'F', 'N'};
     std::cout << "Type in the student's first name: ";
     std::string fname {};
     std::cin >> fname; // not concern about a valid first/last name
@@ -20,21 +20,20 @@ std::map<const std::string, char> getting_student_and_grade_info(){
     auto book_it {grade_book.begin()};
 
     // gets input on grades, validates, then inserts grade into previously created map DS
-    std::cout << "For the following subjects, type in the student's letter grade (A-D, or F). If the student does not have a grade for the class, insert an n" << std::endl;
+    std::cout << "For the following subjects, type in the student's letter grade (A-D, or F). If the student does not have a grade for the class, insert an N" << std::endl;
     while(book_it != grade_book.end()){
         std::cout << "Enter a grade for " << book_it->first << " : ";
         std::string grade {};
         std::cin >> grade;
         if(!is_grade_valid(grade, valid_grades)){
-            std::cout << "!!! Input is not a valid grade! Grades should be A-D, F, or n. Please try again." << std::endl;
+            std::cout << "!!! Input is not a valid grade! Grades should be A-D, F, or N. Please try again." << std::endl;
             continue;
         }
 
         grade_book[book_it->first] = grade.at(0);
         book_it++;
     }
-
-    return grade_book;
+    return Student_Record(fname, lname, grade_book);
 }
 
 // creates subject keys then to be mapped with a grade in map DS

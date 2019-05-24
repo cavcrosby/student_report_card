@@ -3,6 +3,7 @@
 #include <string>
 #include <sstream>
 #include <windows.h>
+#include <cctype>
 #include "Handling.h"
 #include "Main_Menu.h"
 
@@ -42,48 +43,53 @@ std::string get_input(){
     return users_input;
 }
 
-bool is_valid_input(const std::string &users_input, const int total_width){
+bool is_valid_input(const std::string &users_input, const int total_buffer_width){
     const int total_num_options {7};
+    unsigned int answer_width {users_input.length()};
     size_t value {};
     std::istringstream iss{users_input};
-    bool valid_input {iss >> value};
-    if(!valid_input || value <= 0 || value > total_num_options){
-        ClearScreen();
-        std::string error_msg {"########### Invalid input, please try again ###########"};
-        std::cout << std::setw((total_width - error_msg.size())/2) << " " << error_msg << std::endl;
-        print_menu(total_width);
-        return false;
+    while(answer_width > 0) {
+        bool is_valid_input{iss >> value};
+        if (!is_valid_input || value <= 0 || value > total_num_options) {
+            ClearScreen();
+            std::string error_msg{"########### Invalid input, please try again ###########"};
+            std::cout << std::setw((total_buffer_width - error_msg.size()) / 2) << " " << error_msg << std::endl;
+            print_menu(total_buffer_width);
+            return false;
+        }
+
+        answer_width--;
     }
 
     return true;
 }
 
-bool select_option(const std::string &input, const int total_width){
+bool select_option(const std::string &input, const int total_buffer_width){
     switch(std::stoi(input)){
         case 1:
             ClearScreen();
-            getting_student_and_grade_info();
-            print_success_and_menu(total_width);
+            creating_student_object();
+            print_success_and_menu(total_buffer_width);
             return false;
         case 2:
             // TODO PRINT ALL STUDENT RECORDS OBJECTS FROM A DATA STRUCTURE
-            print_success_and_menu(total_width);
+            print_success_and_menu(total_buffer_width);
             return false;
         case 3:
             // TODO HOW TO WE MAKE SURE EACH RECORD IS UNIQUE? USE THIS TO FIND SPECFIC STUDENT'S RECORD
-            print_success_and_menu(total_width);
+            print_success_and_menu(total_buffer_width);
             return false;
         case 4:
             // TODO PRINT ALL STUDENT's GRADES IN ALL SUBJECTS
-            print_success_and_menu(total_width);
+            print_success_and_menu(total_buffer_width);
             return false;
         case 5:
             // TODO HOW TO WE MAKE SURE EACH RECORD IS UNIQUE? USE THIS TO FIND SPECFIC STUDENT'S RECORD, ASK WHAT SUBJECT AND THEN GRADE, THEN WRITE
-            print_success_and_menu(total_width);
+            print_success_and_menu(total_buffer_width);
             return false;
         case 6:
             // TODO HOW TO WE MAKE SURE EACH RECORD IS UNIQUE? USE THIS TO FIND SPECFIC STUDENT'S RECORD AND DELETE
-            print_success_and_menu(total_width);
+            print_success_and_menu(total_buffer_width);
             return false;
         default:
             return true;

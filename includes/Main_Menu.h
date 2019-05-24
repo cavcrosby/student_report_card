@@ -18,8 +18,8 @@ void print_success_and_menu(const int total_width);
 std::string get_input();
 
 // overloaded valid_input method for when creating student record objects?
-bool is_valid_input(const std::string &users_input, const int total_width);
-bool select_option(const std::string &input, const int total_width);
+bool is_valid_input(const std::string &users_input, const int total_buffer_width);
+bool select_option(const std::string &input, const int total_buffer_width);
 void ClearScreen();
 
 
