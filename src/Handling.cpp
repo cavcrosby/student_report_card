@@ -5,15 +5,15 @@
 #include <algorithm>
 #include "Handling.h"
 
-Student_Record creating_student_object(){
+bool creating_student_object(std::vector<Student_Record> &student_records){
     std::vector<char> valid_grades {'A', 'B', 'C', 'D', 'F', 'N'};
     std::cout << "Type in the student's first name: ";
     std::string fname {};
-    std::cin >> fname; // not concern about a valid first/last name
+    std::getline(std::cin, fname);
 
     std::cout << "Type in the student's last name: ";
     std::string lname {};
-    std::cin >> lname;
+    std::getline(std::cin, lname);
     std::cout << std::endl;
 
     auto grade_book {get_grade_book()};
@@ -24,7 +24,7 @@ Student_Record creating_student_object(){
     while(book_it != grade_book.end()){
         std::cout << "Enter a grade for " << book_it->first << " : ";
         std::string grade {};
-        std::cin >> grade;
+        std::getline(std::cin, grade);
         if(!is_grade_valid(grade, valid_grades)){
             std::cout << "!!! Input is not a valid grade! Grades should be A-D, F, or N. Please try again." << std::endl;
             continue;
@@ -33,7 +33,9 @@ Student_Record creating_student_object(){
         grade_book[book_it->first] = grade.at(0);
         book_it++;
     }
-    return Student_Record(fname, lname, grade_book);
+
+    student_records.emplace_back(fname, lname, grade_book);
+    return true;
 }
 
 // creates subject keys then to be mapped with a grade in map DS
@@ -56,5 +58,5 @@ std::map<const std::string, char> get_grade_book() {
 
 bool is_grade_valid(const std::string &grade, const std::vector<char> &valid_grades){
     char input {grade.at(0)};
-    return (std::isalpha(input) && grade.size() == 1 && (std::find(valid_grades.begin(), valid_grades.end(), input) != valid_grades.end()));
+    return (std::isalpha(input) && grade.size() == 1 && (std::find(valid_grades.begin(), valid_grades.end(), std::toupper(input)) != valid_grades.end()));
 }

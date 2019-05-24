@@ -49,8 +49,8 @@ bool is_valid_input(const std::string &users_input, const int total_buffer_width
     size_t value {};
     std::istringstream iss{users_input};
     while(answer_width > 0) {
-        bool is_valid_input{iss >> value};
-        if (!is_valid_input || value <= 0 || value > total_num_options) {
+        bool valid{iss >> value};
+        if (!valid || value <= 0 || value > total_num_options) {
             ClearScreen();
             std::string error_msg{"########### Invalid input, please try again ###########"};
             std::cout << std::setw((total_buffer_width - error_msg.size()) / 2) << " " << error_msg << std::endl;
@@ -64,11 +64,14 @@ bool is_valid_input(const std::string &users_input, const int total_buffer_width
     return true;
 }
 
-bool select_option(const std::string &input, const int total_buffer_width){
+bool select_option(const std::string &input, const int total_buffer_width, std::vector<Student_Record> &student_records){
     switch(std::stoi(input)){
         case 1:
             ClearScreen();
-            creating_student_object();
+            if(!creating_student_object(student_records)){
+                std::cout << "Something went wrong..." << std::endl;
+                return true;
+            }
             print_success_and_menu(total_buffer_width);
             return false;
         case 2:
