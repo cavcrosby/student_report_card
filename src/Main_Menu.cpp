@@ -12,29 +12,29 @@ void print_ruler(){
     std::cout << std::endl;
 }
 
-void print_menu(const int total_width){
+void print_menu(const int total_buffer_width){
 //    print_ruler();
     const int space_divider {4};
     std::string title {"===== STUDENT REPORT-CARD MANAGEMENT SYSTEM ====="};
 
-    std::cout << std::setw((total_width - title.size())/2) << " " << title << std::endl; // we want to have roughly even sides for title
+    std::cout << std::setw((total_buffer_width - title.size())/2) << " " << title << std::endl; // we want to have roughly even sides for title
     std::cout << std::endl << std::endl << std::endl;
-    std::cout << std::left << std::setw(total_width/space_divider) << " " << "1. Create Student Record" << std::endl;
-    std::cout << std::left << std::setw(total_width/space_divider) << " " << "2. List All Student Records" << std::endl;
-    std::cout << std::left << std::setw(total_width/space_divider) << " " << "3. List Specific Student's Record" << std::endl;
-    std::cout << std::left << std::setw(total_width/space_divider) << " " << "4. List All Students' Grades In Subjects" << std::endl;
-    std::cout << std::left << std::setw(total_width/space_divider) << " " << "5. Modify A Student's Grade In Record" << std::endl;
-    std::cout << std::left << std::setw(total_width/space_divider) << " " << "6. Delete Student Record" << std::endl;
-    std::cout << std::left << std::setw(total_width/space_divider) << " " << "7. Exit Program..." << std::endl;
+    std::cout << std::left << std::setw(total_buffer_width/space_divider) << " " << "1. Create Student Record" << std::endl;
+    std::cout << std::left << std::setw(total_buffer_width/space_divider) << " " << "2. List All Student Records" << std::endl;
+    std::cout << std::left << std::setw(total_buffer_width/space_divider) << " " << "3. List Specific Student's Record" << std::endl;
+    std::cout << std::left << std::setw(total_buffer_width/space_divider) << " " << "4. List All Students' Grades In Subjects" << std::endl;
+    std::cout << std::left << std::setw(total_buffer_width/space_divider) << " " << "5. Modify A Student's Grade In Record" << std::endl;
+    std::cout << std::left << std::setw(total_buffer_width/space_divider) << " " << "6. Delete Student Record" << std::endl;
+    std::cout << std::left << std::setw(total_buffer_width/space_divider) << " " << "7. Exit Program..." << std::endl;
     std::cout << std::endl;
-    std::cout << std::left << std::setw(total_width/space_divider) << " " << "Select Your Choice :=> ";
+    std::cout << std::left << std::setw(total_buffer_width/space_divider) << " " << "Select Your Choice :=> ";
 }
 
-void print_success_and_menu(const int total_width){
+void print_success_and_menu(const int total_buffer_width){
     ClearScreen();
     std::string success_message {"########### Successfully completed task! ###########"};
-    std::cout << std::setw((total_width - success_message.size())/2) << " " << success_message << std::endl;
-    print_menu(total_width);
+    std::cout << std::setw((total_buffer_width - success_message.size())/2) << " " << success_message << std::endl;
+    print_menu(total_buffer_width);
 }
 
 std::string get_input(){
