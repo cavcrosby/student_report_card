@@ -75,7 +75,7 @@ bool select_option(const std::string &input, const int total_buffer_width, std::
         case 1:
             ClearScreen();
             if(!creating_student_object(student_records)){
-                std::cout << "Something went wrong..." << std::endl;
+                std::cout << "Something went wrong..." << std::endl; // TODO FIX ERROR HANDLING OR IMPROVE IT?
                 return true;
             }
             print_success_and_menu(total_buffer_width);
@@ -102,7 +102,11 @@ bool select_option(const std::string &input, const int total_buffer_width, std::
             return false;
         }
         case 4:
-            // TODO PRINT ALL STUDENT's GRADES IN ALL SUBJECTS
+            ClearScreen();
+            if(!display(student_records, total_buffer_width, false)){
+                print_menu(total_buffer_width);
+                return false;
+            }
             print_success_and_menu(total_buffer_width);
             return false;
         case 5:

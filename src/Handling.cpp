@@ -4,18 +4,27 @@
 #include <vector>
 #include <cctype>
 #include <algorithm>
+#include <Main_Menu.h>
 #include "Handling.h"
 
 bool creating_student_object(std::vector<Student_Record> &student_records) {
+    bool done{false};
     std::vector<char> valid_grades{'A', 'B', 'C', 'D', 'F', 'N'};
-    std::cout << "Type in the student's first name: ";
     std::string fname{};
-    std::getline(std::cin, fname);
-
-    std::cout << "Type in the student's last name: ";
     std::string lname{};
-    std::getline(std::cin, lname);
-    std::cout << std::endl;
+    while(!done){
+        std::cout << "Type in the student's first name: ";
+        std::getline(std::cin, fname);
+        std::cout << "Type in the student's last name: ";
+        std::getline(std::cin, lname);
+        std::cout << std::endl;
+        if(lname.empty() || fname.empty()){
+            ClearScreen();
+            std::cout << "!!! Both first and last name should not be empty, please try again." << std::endl;
+            continue;
+        }
+        done = true;
+    }
 
     auto grade_book{get_grade_book()};
     auto book_it{grade_book.begin()};
@@ -28,13 +37,13 @@ bool creating_student_object(std::vector<Student_Record> &student_records) {
         std::cout << "Enter a grade for " << book_it->first << " : ";
         std::string grade{};
         std::getline(std::cin, grade);
-        if (!is_input_grade_valid(grade, valid_grades)) {
+        if (grade.empty() || !is_input_grade_valid(grade, valid_grades)) {
             std::cout << "!!! Input is not a valid grade! Grades should be A-D, F, or N. Please try again."
                       << std::endl;
             continue;
         }
 
-        grade_book[book_it->first] = grade.at(0);
+        grade_book[book_it->first] = std::toupper(grade.at(0));
         book_it++;
     }
 
@@ -94,7 +103,7 @@ bool display(const std::vector<Student_Record> &vec, const int total_buffer_widt
         unsigned int subject_label_start{((total_buffer_width - title.size())/title_space_divider)};
 
         std::cout << std::setw(subject_label_start) << " " << title << std::endl;
-        std::cout << std::setw(subject_label_start) << " " << ((with_roll_number) ? it->get_student_roll_number() : ' ') << std::endl; // display will be the same, just with or without roll number
+        std::cout << std::setw(subject_label_start) << " " << ((with_roll_number) ? ("Roll #: " + std::to_string(it->get_student_roll_number())) : std::string("")) << std::endl; // display will be the same, just with or without roll number
         const std::map<const std::string, char> &grade_book {it->get_grade_book()};
         for(auto &subject: grade_book) { // here is where we go through their grade book
             std::cout << std::left << std::setw(space_between_sub_grade) << subject.first  << subject.second << std::endl;
