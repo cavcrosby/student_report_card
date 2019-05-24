@@ -3,6 +3,7 @@
 #include <string>
 #include <sstream>
 #include <windows.h>
+#include "Handling.h"
 #include "Main_Menu.h"
 
 void print_ruler(){
@@ -60,7 +61,8 @@ bool is_valid_input(const std::string &users_input, const int total_width){
 bool select_option(const std::string &input, const int total_width){
     switch(std::stoi(input)){
         case 1:
-            // TODO DEFINE WHAT A STUDENT RECORD NEEDS TO CREATE THE RECORD OBJECT
+            ClearScreen();
+            getting_student_and_grade_info();
             print_success_and_menu(total_width);
             return false;
         case 2:
