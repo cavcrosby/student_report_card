@@ -7,7 +7,7 @@
 #define STUDENT_REPORT_CARD_HANDLING_H
 
 bool creating_student_object(std::vector<Student_Record> &student_records);
-std::map<const std::string, char> get_grade_book();
+std::map<const std::string, char> create_grade_book();
 bool is_input_grade_valid(const std::string &grade, const std::vector<char> &valid_grades);
 bool display(const std::vector<Student_Record> &vec, const int total_buffer_width, bool with_roll_number = true, std::string particular_student = "All");
 

@@ -26,7 +26,7 @@ bool creating_student_object(std::vector<Student_Record> &student_records) {
         done = true;
     }
 
-    auto grade_book{get_grade_book()};
+    auto grade_book{create_grade_book()};
     auto book_it{grade_book.begin()};
 
     // gets input on grades, validates, then inserts grade into previously created map DS
@@ -52,7 +52,7 @@ bool creating_student_object(std::vector<Student_Record> &student_records) {
 }
 
 // creates subject keys then to be mapped with a grade in map DS
-std::map<const std::string, char> get_grade_book() {
+std::map<const std::string, char> create_grade_book() {
     std::vector<std::string> keys{
             "Physics",
             "Chemistry",
