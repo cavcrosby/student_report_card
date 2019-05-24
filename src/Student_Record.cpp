@@ -7,6 +7,10 @@ Student_Record::Student_Record(std::string &fname, std::string &lname, std::map<
     roll_number += 1;
 }
 
+bool Student_Record::operator==(const std::string &student_roll_number) const {
+    return (std::to_string(this->get_student_roll_number()) == student_roll_number); // not this->student_roll_number rhs
+}
+
 unsigned int Student_Record::get_student_roll_number() const {
     return student_roll_number;
 }

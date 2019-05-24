@@ -20,7 +20,7 @@ public:
             std::map<const std::string, char> &student_subjects_grade,
             unsigned int student_roll_number = roll_number
     );
-
+    bool operator==(const std::string &student_roll_number) const;
     unsigned int get_student_roll_number() const;
     const std::string &get_fname() const;
     const std::string &get_lname() const;
