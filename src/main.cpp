@@ -5,6 +5,7 @@
 #include <vector>
 #include <windows.h>
 #include "Main_Menu.h"
+#include "Handling.h"
 
 int main() {
     std::vector<Student_Record> student_records{};
@@ -28,6 +29,10 @@ int main() {
     std::cout << std::endl;
     std::cout << "Enter any key to exit..." << std::endl;
     std::getline(std::cin, exit_key);
+
+    /* TODO WHAT WE DID: MAIN MENU HAD A BUG WHERE EMPTY INPUT THREW ERROR, FIXED, MAKE A DISPLAY MESSAGE FUNC TO HANDLE MULTI-CASES
+    MOVED CLEARSCREEN AND THIS NEW DISPLAY MESSAGE FUNC TO HANDLING, AS IT NOW FITS THERE MORE
+    STARTED WORKING ADDING MOD STUDENT GRADE IN RECORD, SOME DUPLICATE CODE, SEE ABOUT MERGING INTO ONE FUNC, MIGHT NOT BE NESSCESSARY*/
 
     return 0;
 }

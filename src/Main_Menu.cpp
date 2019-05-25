@@ -37,10 +37,7 @@ void print_menu(const int total_buffer_width){
 }
 
 void print_success_and_menu(const int total_buffer_width){
-    ClearScreen();
-    std::string success_message {"########### Successfully completed task! ###########"};
-    std::cout << std::setw((total_buffer_width - success_message.size())/2) << " " << success_message << std::endl;
-    print_menu(total_buffer_width);
+    display_message_and_menu("########### Successfully completed task! ###########", total_buffer_width);
 }
 
 std::string get_input(){
@@ -50,6 +47,10 @@ std::string get_input(){
 }
 
 bool is_valid_input(const std::string &users_input, const int total_buffer_width){
+    if(users_input.empty()){
+        display_message_and_menu("########### No input was entered! Please try again ###########", total_buffer_width);
+        return false;
+    }
     const int total_num_options {7};
     unsigned int answer_width {users_input.length()};
     size_t value {};
@@ -57,13 +58,9 @@ bool is_valid_input(const std::string &users_input, const int total_buffer_width
     while(answer_width > 0) {
         bool valid{iss >> value};
         if (!valid || value <= 0 || value > total_num_options) {
-            ClearScreen();
-            std::string error_msg{"########### Invalid input, please try again ###########"};
-            std::cout << std::setw((total_buffer_width - error_msg.size()) / 2) << " " << error_msg << std::endl;
-            print_menu(total_buffer_width);
+            display_message_and_menu("########### Invalid input, please try again ###########", total_buffer_width);
             return false;
         }
-
         answer_width--;
     }
 
@@ -82,7 +79,7 @@ bool select_option(const std::string &input, const int total_buffer_width, std::
             return false;
         case 2:
             ClearScreen();
-            if(!display(student_records, total_buffer_width)){
+            if(!display_student_records(student_records, total_buffer_width)){
                 print_menu(total_buffer_width);
                 return false;
             }
@@ -90,11 +87,9 @@ bool select_option(const std::string &input, const int total_buffer_width, std::
             return false;
         case 3: {
             ClearScreen();
-            std::string student_record_number{};
-            std::cout << "Enter the student's record number: ";
-            std::getline(std::cin, student_record_number);
+            std::string student_record_number{get_student_record_number()};
             ClearScreen();
-            if (!display(student_records, total_buffer_width, true, student_record_number)) {
+            if (!display_student_records(student_records, total_buffer_width, true, student_record_number)) {
                 print_menu(total_buffer_width);
                 return false;
             }
@@ -103,16 +98,17 @@ bool select_option(const std::string &input, const int total_buffer_width, std::
         }
         case 4:
             ClearScreen();
-            if(!display(student_records, total_buffer_width, false)){
+            if(!display_student_records(student_records, total_buffer_width, false)){
                 print_menu(total_buffer_width);
                 return false;
             }
             print_success_and_menu(total_buffer_width);
             return false;
-        case 5:
-            // TODO HOW TO WE MAKE SURE EACH RECORD IS UNIQUE? USE THIS TO FIND SPECFIC STUDENT'S RECORD, ASK WHAT SUBJECT AND THEN GRADE, THEN WRITE
+        case 5: {
+            std::string student_record_number{get_student_record_number()};
             print_success_and_menu(total_buffer_width);
             return false;
+        }
         case 6:
             // TODO HOW TO WE MAKE SURE EACH RECORD IS UNIQUE? USE THIS TO FIND SPECFIC STUDENT'S RECORD AND DELETE
             print_success_and_menu(total_buffer_width);
@@ -122,40 +118,10 @@ bool select_option(const std::string &input, const int total_buffer_width, std::
     }
 }
 
-// credit to http://www.cplusplus.com/articles/4z18T05o/#Windows for API code
-void ClearScreen()
-{
-    HANDLE                     hStdOut;
-    CONSOLE_SCREEN_BUFFER_INFO csbi;
-    DWORD                      count;
-    DWORD                      cellCount;
-    COORD                      homeCoords = { 0, 0 };
-
-    hStdOut = GetStdHandle( STD_OUTPUT_HANDLE );
-    if (hStdOut == INVALID_HANDLE_VALUE) return;
-
-    /* Get the number of cells in the current buffer */
-    if (!GetConsoleScreenBufferInfo( hStdOut, &csbi )) return;
-    cellCount = csbi.dwSize.X *csbi.dwSize.Y;
-
-    /* Fill the entire buffer with spaces */
-    if (!FillConsoleOutputCharacter(
-            hStdOut,
-            (TCHAR) ' ',
-            cellCount,
-            homeCoords,
-            &count
-    )) return;
-
-    /* Fill the entire buffer with the current colors and attributes */
-    if (!FillConsoleOutputAttribute(
-            hStdOut,
-            csbi.wAttributes,
-            cellCount,
-            homeCoords,
-            &count
-    )) return;
-
-    /* Move the cursor home */
-    SetConsoleCursorPosition( hStdOut, homeCoords );
+std::string get_student_record_number(){
+    std::string student_record_number{};
+    std::cout << "Enter the student's record number: ";
+    std::getline(std::cin, student_record_number);
+    return student_record_number;
 }
+

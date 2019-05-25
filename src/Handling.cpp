@@ -1,3 +1,6 @@
+#include <windows.h>
+#include <sstream>
+#include <string>
 #include <iostream>
 #include <iomanip>
 #include <map>
@@ -75,11 +78,12 @@ bool is_input_grade_valid(const std::string &grade, const std::vector<char> &val
             (std::find(valid_grades.begin(), valid_grades.end(), std::toupper(input)) != valid_grades.end()));
 }
 
-bool display(const std::vector<Student_Record> &vec, const int total_buffer_width, bool with_roll_number,
-        std::string particular_student){
+bool display_student_records(const std::vector<Student_Record> &vec, const int total_buffer_width,
+                             bool with_roll_number,
+                             std::string particular_student){
     if(vec.empty()){
-        std::string message {"########### There are no student records to print... ###########"};
-        std::cout << std::setw((total_buffer_width - message.size())/2) << " " << message << std::endl;
+        display_message_and_menu("########### There are no student records to print... ###########", total_buffer_width,
+                                 false);
         return false;
     }
     std::vector<Student_Record> iterate_over {vec};
@@ -89,8 +93,9 @@ bool display(const std::vector<Student_Record> &vec, const int total_buffer_widt
     if(particular_student != "All") {
         auto found_it {std::find(vec.begin(), vec.end(), particular_student)};
         if (found_it == vec.end()){
-            std::string message {"########### Could not find student, please make sure you have entered in the right roll number ###########"};
-            std::cout << std::setw((total_buffer_width - message.size())/2) << " " << message << std::endl;
+            display_message_and_menu(
+                    "########### Could not find student record, please make sure you have entered in the right roll number ###########",
+                    total_buffer_width, false);
             return false;
         }
         iterate_over.clear();
@@ -103,7 +108,7 @@ bool display(const std::vector<Student_Record> &vec, const int total_buffer_widt
         unsigned int subject_label_start{((total_buffer_width - title.size())/title_space_divider)};
 
         std::cout << std::setw(subject_label_start) << " " << title << std::endl;
-        std::cout << std::setw(subject_label_start) << " " << ((with_roll_number) ? ("Roll #: " + std::to_string(it->get_student_roll_number())) : std::string("")) << std::endl; // display will be the same, just with or without roll number
+        std::cout << std::setw(subject_label_start) << " " << ((with_roll_number) ? ("Roll #: " + std::to_string(it->get_student_roll_number())) : std::string("")) << std::endl; // display_message_and_menu will be the same, just with or without roll number
         const std::map<const std::string, char> &grade_book {it->get_grade_book()};
         for(auto &subject: grade_book) { // here is where we go through their grade book
             std::cout << std::left << std::setw(space_between_sub_grade) << subject.first  << subject.second << std::endl;
@@ -118,4 +123,79 @@ bool display(const std::vector<Student_Record> &vec, const int total_buffer_widt
     std::cout << "Enter any key to go back to the main menu..." << std::endl;
     getline(std::cin, particular_student);
     return true;
+}
+
+bool modify_student_grade(const std::vector<Student_Record> &vec, const int total_buffer_width,
+        const std::string &particular_student){
+    if(vec.empty()){
+        display_message_and_menu("########### There are no student records to print... ###########", total_buffer_width);
+        return false;
+    }
+    auto found_it {std::find(vec.begin(), vec.end(), particular_student)};
+    if(found_it == vec.end()){
+        display_message_and_menu("########### Could not find student record, please make sure you have entered in the right roll number ###########",
+                total_buffer_width);
+        return false;
+    }
+
+    auto grade_book {found_it->get_grade_book()};
+    bool done {false};
+    while(!done) {
+        std::string subject{};
+        std::cout << "Enter the subject whose student's grade you wish to change: ";
+        std::getline(std::cin, subject);
+        if (grade_book.find(subject) == grade_book.end()){
+            std::cout << "!!! Student is not taking the enter subject, please try again..." << std::endl;
+            continue;
+        }
+
+        // TODO HOW TO VALIDATE GRADE WITHOUT MASSIVE AMOUNTS OF DUPLICATE CODE?????
+    }
+
+}
+
+// credit to http://www.cplusplus.com/articles/4z18T05o/#Windows for API code
+void ClearScreen()
+{
+    HANDLE                     hStdOut;
+    CONSOLE_SCREEN_BUFFER_INFO csbi;
+    DWORD                      count;
+    DWORD                      cellCount;
+    COORD                      homeCoords = { 0, 0 };
+
+    hStdOut = GetStdHandle( STD_OUTPUT_HANDLE );
+    if (hStdOut == INVALID_HANDLE_VALUE) return;
+
+    /* Get the number of cells in the current buffer */
+    if (!GetConsoleScreenBufferInfo( hStdOut, &csbi )) return;
+    cellCount = csbi.dwSize.X *csbi.dwSize.Y;
+
+    /* Fill the entire buffer with spaces */
+    if (!FillConsoleOutputCharacter(
+            hStdOut,
+            (TCHAR) ' ',
+            cellCount,
+            homeCoords,
+            &count
+    )) return;
+
+    /* Fill the entire buffer with the current colors and attributes */
+    if (!FillConsoleOutputAttribute(
+            hStdOut,
+            csbi.wAttributes,
+            cellCount,
+            homeCoords,
+            &count
+    )) return;
+
+    /* Move the cursor home */
+    SetConsoleCursorPosition( hStdOut, homeCoords );
+}
+
+void display_message_and_menu(const std::string &message, const int total_buffer_width, bool with_menu_and_clear_screen){
+    if(with_menu_and_clear_screen)
+        ClearScreen();
+    std::cout << std::setw((total_buffer_width - message.size()) / 2) << " " << message << std::endl;
+    if(with_menu_and_clear_screen)
+        print_menu(total_buffer_width);
 }
