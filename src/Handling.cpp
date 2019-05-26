@@ -28,10 +28,8 @@ bool creating_student_object(std::vector<Student_Record> &student_records) {
         }
         done = true;
     }
-
     auto grade_book{create_grade_book()};
     auto book_it{grade_book.begin()};
-
     // gets input on grades, validates, then inserts grade into previously created map DS
     std::cout
             << "For the following subjects, type in the student's letter grade (A-D, or F). If the student does not have a grade for the class, insert an N"
@@ -45,11 +43,9 @@ bool creating_student_object(std::vector<Student_Record> &student_records) {
                       << std::endl;
             continue;
         }
-
         grade_book[book_it->first] = std::toupper(grade.at(0));
         book_it++;
     }
-
     student_records.emplace_back(fname, lname, grade_book);
     return true;
 }
@@ -68,7 +64,6 @@ std::map<const std::string, char> create_grade_book() {
         subject_and_grades.insert(std::make_pair(*key_it, NULL)); // use null or not?
         key_it++;
     }
-
     return subject_and_grades;
 }
 
@@ -88,7 +83,6 @@ bool display_student_records(const std::vector<Student_Record> &vec, const int t
     std::vector<Student_Record> iterate_over {vec};
     const int title_space_divider {3};
     int space_between_sub_grade {12};
-
     if(particular_student != "All") {
         auto found_it {std::find(vec.begin(), vec.end(), particular_student)};
         if (found_it == vec.end()){
@@ -100,7 +94,6 @@ bool display_student_records(const std::vector<Student_Record> &vec, const int t
         iterate_over.clear();
         iterate_over.push_back(*found_it);
     }
-
     auto it{iterate_over.begin()};
     while (it != iterate_over.end()) { // we have a record of a student
         std::string title{"===== " + it->get_fname() + " " + it->get_lname() + "'s REPORT CARD ===== "};
@@ -118,7 +111,6 @@ bool display_student_records(const std::vector<Student_Record> &vec, const int t
     std::cout << std::endl;
     std::cout << std::endl;
     std::cout << std::endl;
-
     std::cout << "Enter any key to go back to the main menu..." << std::endl;
     getline(std::cin, particular_student);
     return true;
@@ -189,7 +181,6 @@ bool modify_student_grade(std::vector<Student_Record> &vec, const int total_buff
                 total_buffer_width);
         return false;
     }
-
     auto &grade_book{found_it->get_grade_book()};
     bool done{false};
     std::string subject{};
@@ -202,7 +193,6 @@ bool modify_student_grade(std::vector<Student_Record> &vec, const int total_buff
         }
         done = true;
     }
-
     done = false;
     std::string grade{};
     while (!done) {
@@ -216,11 +206,9 @@ bool modify_student_grade(std::vector<Student_Record> &vec, const int total_buff
         grade_book[subject] = std::toupper(grade.at(0));
         done = true;
     }
-
     std::cout << std::endl;
     std::cout << std::endl;
     std::cout << std::endl;
-
     std::cout << "Enter any key to go back to the main menu..." << std::endl;
     getline(std::cin, subject);
     return true;

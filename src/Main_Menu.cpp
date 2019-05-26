@@ -16,13 +16,9 @@ void print_ruler(const int total_buffer_width){
 }
 
 void print_menu(const int total_buffer_width){
-//    print_ruler(total_buffer_width);
     const int space_divider {4};
     const int title_space_divider {2};
     const std::string title {"===== STUDENT REPORT-CARD MANAGEMENT SYSTEM ====="};
-//    std::cout << title.length() << std::endl;
-
-
     std::cout << std::setw((total_buffer_width - title.size())/title_space_divider) << " " << title << std::endl; // we want to have roughly even sides for title
     std::cout << std::endl << std::endl << std::endl;
     std::cout << std::setw(total_buffer_width/space_divider) << " " << "1. Create Student Record" << std::endl;
@@ -59,7 +55,6 @@ bool is_valid_input(const std::string &users_input, const int total_buffer_width
         }
         answer_width--;
     }
-
     return true;
 }
 
