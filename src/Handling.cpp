@@ -73,6 +73,24 @@ bool is_input_grade_valid(const std::string &grade, const std::vector<char> &val
             (std::find(valid_grades.begin(), valid_grades.end(), std::toupper(input)) != valid_grades.end()));
 }
 
+bool is_container_empty_or_we_cannot_find_student(const std::vector<Student_Record> &vec, const int total_buffer_width,
+        const std::string &particular_student){
+    if (vec.empty()) {
+        display_message_and_menu("########### There are no student records to modify... ###########",
+                                 total_buffer_width);
+        return true;
+    }
+    auto found_it{std::find(vec.begin(), vec.end(), particular_student)};
+    if (found_it == vec.end()) {
+        display_message_and_menu(
+                "########### Could not find student record, please make sure you have entered in the right roll number ###########",
+                total_buffer_width);
+        return true;
+    }
+
+    return false;
+}
+
 bool display_student_records(const std::vector<Student_Record> &vec, const int total_buffer_width,
                              bool with_roll_number,
                              std::string particular_student){
@@ -166,21 +184,21 @@ void ClearScreen()
     SetConsoleCursorPosition( hStdOut, homeCoords );
 }
 
-bool modify_student_grade(std::vector<Student_Record> &vec, const int total_buffer_width,
-                          const std::string &particular_student) {
-    std::vector<char> valid_grades{'A', 'B', 'C', 'D', 'F', 'N'};
-    if (vec.empty()) {
-        display_message_and_menu("########### There are no student records to modify... ###########",
-                                 total_buffer_width);
+bool delete_student_record(const std::vector<Student_Record> &vec, const int total_buffer_width, const std::string &particular_student){
+    if (is_container_empty_or_we_cannot_find_student(vec, total_buffer_width, particular_student)) {
         return false;
     }
     auto found_it{std::find(vec.begin(), vec.end(), particular_student)};
-    if (found_it == vec.end()) {
-        display_message_and_menu(
-                "########### Could not find student record, please make sure you have entered in the right roll number ###########",
-                total_buffer_width);
+
+}
+
+bool modify_student_grade(std::vector<Student_Record> &vec, const int total_buffer_width,
+                          const std::string &particular_student) {
+    std::vector<char> valid_grades{'A', 'B', 'C', 'D', 'F', 'N'};
+    if (is_container_empty_or_we_cannot_find_student(vec, total_buffer_width, particular_student)) {
         return false;
     }
+    auto found_it{std::find(vec.begin(), vec.end(), particular_student)};
     auto &grade_book{found_it->get_grade_book()};
     bool done{false};
     std::string subject{};

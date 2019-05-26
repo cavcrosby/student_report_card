@@ -91,7 +91,7 @@ bool select_option(const std::string &input, const int total_buffer_width, std::
             return false;
         }
         case 6:
-            // TODO HOW TO WE MAKE SURE EACH RECORD IS UNIQUE? USE THIS TO FIND SPECFIC STUDENT'S RECORD AND DELETE
+            std::string student_record_number{student_record_number_input()};
             print_success_and_menu(total_buffer_width);
             return false;
         default:
