@@ -79,33 +79,23 @@ bool select_option(const std::string &input, const int total_buffer_width, std::
             return false;
         case 2:
             ClearScreen();
-            if(!display_student_records(student_records, total_buffer_width)){
-                print_menu(total_buffer_width);
-                return false;
-            }
+            if(!display_student_records(student_records, total_buffer_width)){ return false;}
             print_success_and_menu(total_buffer_width);
             return false;
         case 3: {
-            ClearScreen();
-            std::string student_record_number{get_student_record_number()};
-            ClearScreen();
-            if (!display_student_records(student_records, total_buffer_width, true, student_record_number)) {
-                print_menu(total_buffer_width);
-                return false;
-            }
+            std::string student_record_number{student_record_number_input()};
+            if (!display_student_records(student_records, total_buffer_width, true, student_record_number)) { return false;}
             print_success_and_menu(total_buffer_width);
             return false;
         }
         case 4:
             ClearScreen();
-            if(!display_student_records(student_records, total_buffer_width, false)){
-                print_menu(total_buffer_width);
-                return false;
-            }
+            if(!display_student_records(student_records, total_buffer_width, false)){ return false;}
             print_success_and_menu(total_buffer_width);
             return false;
         case 5: {
-            std::string student_record_number{get_student_record_number()};
+            std::string student_record_number{student_record_number_input()};
+            if(!modify_student_grade(student_records, total_buffer_width, student_record_number)){ return false;}
             print_success_and_menu(total_buffer_width);
             return false;
         }
@@ -118,10 +108,12 @@ bool select_option(const std::string &input, const int total_buffer_width, std::
     }
 }
 
-std::string get_student_record_number(){
+std::string student_record_number_input(){
+    ClearScreen();
     std::string student_record_number{};
     std::cout << "Enter the student's record number: ";
     std::getline(std::cin, student_record_number);
+    ClearScreen();
     return student_record_number;
 }
 

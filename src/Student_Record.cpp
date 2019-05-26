@@ -2,7 +2,7 @@
 
 unsigned int Student_Record::roll_number{0};
 
-Student_Record::Student_Record(std::string &fname, std::string &lname, std::map<const std::string, char> &student_subjects_grade,unsigned int student_roll_number)
+Student_Record::Student_Record(std::string &fname, std::string &lname, std::map<const std::string, char> &student_subjects_grade, unsigned int student_roll_number)
                                : fname{fname}, lname{lname}, student_subjects_grade{student_subjects_grade}, student_roll_number{student_roll_number}{
     roll_number += 1;
 }
@@ -15,15 +15,15 @@ unsigned int Student_Record::get_student_roll_number() const {
     return student_roll_number;
 }
 
-const std::string &Student_Record::get_fname() const {
+std::string &Student_Record::get_fname(){
     return fname;
 }
 
-const std::string &Student_Record::get_lname() const {
+std::string &Student_Record::get_lname(){
     return lname;
 }
 
-const std::map<const std::string, char> &Student_Record::get_grade_book() const{
+std::map<const std::string, char> &Student_Record::get_grade_book(){
     return student_subjects_grade;
 }
 

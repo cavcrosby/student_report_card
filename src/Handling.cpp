@@ -82,8 +82,7 @@ bool display_student_records(const std::vector<Student_Record> &vec, const int t
                              bool with_roll_number,
                              std::string particular_student){
     if(vec.empty()){
-        display_message_and_menu("########### There are no student records to print... ###########", total_buffer_width,
-                                 false);
+        display_message_and_menu("########### There are no student records to print... ###########", total_buffer_width);
         return false;
     }
     std::vector<Student_Record> iterate_over {vec};
@@ -95,7 +94,7 @@ bool display_student_records(const std::vector<Student_Record> &vec, const int t
         if (found_it == vec.end()){
             display_message_and_menu(
                     "########### Could not find student record, please make sure you have entered in the right roll number ###########",
-                    total_buffer_width, false);
+                    total_buffer_width);
             return false;
         }
         iterate_over.clear();
@@ -125,33 +124,56 @@ bool display_student_records(const std::vector<Student_Record> &vec, const int t
     return true;
 }
 
-bool modify_student_grade(const std::vector<Student_Record> &vec, const int total_buffer_width,
-        const std::string &particular_student){
-    if(vec.empty()){
-        display_message_and_menu("########### There are no student records to print... ###########", total_buffer_width);
+bool modify_student_grade(std::vector<Student_Record> &vec, const int total_buffer_width,
+        const std::string &particular_student) {
+    std::vector<char> valid_grades{'A', 'B', 'C', 'D', 'F', 'N'};
+    if (vec.empty()) {
+        display_message_and_menu("########### There are no student records to modify... ###########",
+                                 total_buffer_width);
         return false;
     }
-    auto found_it {std::find(vec.begin(), vec.end(), particular_student)};
-    if(found_it == vec.end()){
-        display_message_and_menu("########### Could not find student record, please make sure you have entered in the right roll number ###########",
+    auto found_it{std::find(vec.begin(), vec.end(), particular_student)};
+    if (found_it == vec.end()) {
+        display_message_and_menu(
+                "########### Could not find student record, please make sure you have entered in the right roll number ###########",
                 total_buffer_width);
         return false;
     }
 
-    auto grade_book {found_it->get_grade_book()};
-    bool done {false};
-    while(!done) {
-        std::string subject{};
+    auto &grade_book{found_it->get_grade_book()};
+    bool done{false};
+    std::string subject{};
+    while (!done) {
         std::cout << "Enter the subject whose student's grade you wish to change: ";
         std::getline(std::cin, subject);
-        if (grade_book.find(subject) == grade_book.end()){
+        if (grade_book.find(subject) == grade_book.end()) {
             std::cout << "!!! Student is not taking the enter subject, please try again..." << std::endl;
             continue;
         }
-
-        // TODO HOW TO VALIDATE GRADE WITHOUT MASSIVE AMOUNTS OF DUPLICATE CODE?????
+        done = true;
     }
 
+    done = false;
+    std::string grade{};
+    while (!done) {
+        std::cout << "Enter a grade for " << subject << " : ";
+        std::getline(std::cin, grade);
+        if (grade.empty() || !is_input_grade_valid(grade, valid_grades)) {
+            std::cout << "!!! Input is not a valid grade! Grades should be A-D, F, or N. Please try again."
+                      << std::endl;
+            continue;
+        }
+        grade_book[subject] = std::toupper(grade.at(0));
+        done = true;
+    }
+
+    std::cout << std::endl;
+    std::cout << std::endl;
+    std::cout << std::endl;
+
+    std::cout << "Enter any key to go back to the main menu..." << std::endl;
+    getline(std::cin, subject);
+    return true;
 }
 
 // credit to http://www.cplusplus.com/articles/4z18T05o/#Windows for API code
@@ -199,3 +221,4 @@ void display_message_and_menu(const std::string &message, const int total_buffer
     if(with_menu_and_clear_screen)
         print_menu(total_buffer_width);
 }
+

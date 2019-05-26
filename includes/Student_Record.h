@@ -22,9 +22,9 @@ public:
     );
     bool operator==(const std::string &student_roll_number) const;
     unsigned int get_student_roll_number() const;
-    const std::string &get_fname() const;
-    const std::string &get_lname() const;
-    const std::map<const std::string, char> &get_grade_book() const;
+    std::string &get_fname();
+    std::string &get_lname();
+    std::map<const std::string, char> &get_grade_book();
 };
 
 
