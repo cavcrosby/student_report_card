@@ -124,8 +124,58 @@ bool display_student_records(const std::vector<Student_Record> &vec, const int t
     return true;
 }
 
+void display_message_and_menu(const std::string &message, const int total_buffer_width, bool with_menu_and_clear_screen){
+    if(with_menu_and_clear_screen)
+        ClearScreen();
+    std::cout << std::setw((total_buffer_width - message.size()) / 2) << " " << message << std::endl;
+    if(with_menu_and_clear_screen)
+        print_menu(total_buffer_width);
+}
+
+void print_success_and_menu(const int total_buffer_width){
+    display_message_and_menu("########### Successfully completed task! ###########", total_buffer_width);
+}
+
+// credit to http://www.cplusplus.com/articles/4z18T05o/#Windows for API code
+void ClearScreen()
+{
+    HANDLE                     hStdOut;
+    CONSOLE_SCREEN_BUFFER_INFO csbi;
+    DWORD                      count;
+    DWORD                      cellCount;
+    COORD                      homeCoords = { 0, 0 };
+
+    hStdOut = GetStdHandle( STD_OUTPUT_HANDLE );
+    if (hStdOut == INVALID_HANDLE_VALUE) return;
+
+    /* Get the number of cells in the current buffer */
+    if (!GetConsoleScreenBufferInfo( hStdOut, &csbi )) return;
+    cellCount = csbi.dwSize.X *csbi.dwSize.Y;
+
+    /* Fill the entire buffer with spaces */
+    if (!FillConsoleOutputCharacter(
+            hStdOut,
+            (TCHAR) ' ',
+            cellCount,
+            homeCoords,
+            &count
+    )) return;
+
+    /* Fill the entire buffer with the current colors and attributes */
+    if (!FillConsoleOutputAttribute(
+            hStdOut,
+            csbi.wAttributes,
+            cellCount,
+            homeCoords,
+            &count
+    )) return;
+
+    /* Move the cursor home */
+    SetConsoleCursorPosition( hStdOut, homeCoords );
+}
+
 bool modify_student_grade(std::vector<Student_Record> &vec, const int total_buffer_width,
-        const std::string &particular_student) {
+                          const std::string &particular_student) {
     std::vector<char> valid_grades{'A', 'B', 'C', 'D', 'F', 'N'};
     if (vec.empty()) {
         display_message_and_menu("########### There are no student records to modify... ###########",
@@ -175,50 +225,3 @@ bool modify_student_grade(std::vector<Student_Record> &vec, const int total_buff
     getline(std::cin, subject);
     return true;
 }
-
-// credit to http://www.cplusplus.com/articles/4z18T05o/#Windows for API code
-void ClearScreen()
-{
-    HANDLE                     hStdOut;
-    CONSOLE_SCREEN_BUFFER_INFO csbi;
-    DWORD                      count;
-    DWORD                      cellCount;
-    COORD                      homeCoords = { 0, 0 };
-
-    hStdOut = GetStdHandle( STD_OUTPUT_HANDLE );
-    if (hStdOut == INVALID_HANDLE_VALUE) return;
-
-    /* Get the number of cells in the current buffer */
-    if (!GetConsoleScreenBufferInfo( hStdOut, &csbi )) return;
-    cellCount = csbi.dwSize.X *csbi.dwSize.Y;
-
-    /* Fill the entire buffer with spaces */
-    if (!FillConsoleOutputCharacter(
-            hStdOut,
-            (TCHAR) ' ',
-            cellCount,
-            homeCoords,
-            &count
-    )) return;
-
-    /* Fill the entire buffer with the current colors and attributes */
-    if (!FillConsoleOutputAttribute(
-            hStdOut,
-            csbi.wAttributes,
-            cellCount,
-            homeCoords,
-            &count
-    )) return;
-
-    /* Move the cursor home */
-    SetConsoleCursorPosition( hStdOut, homeCoords );
-}
-
-void display_message_and_menu(const std::string &message, const int total_buffer_width, bool with_menu_and_clear_screen){
-    if(with_menu_and_clear_screen)
-        ClearScreen();
-    std::cout << std::setw((total_buffer_width - message.size()) / 2) << " " << message << std::endl;
-    if(with_menu_and_clear_screen)
-        print_menu(total_buffer_width);
-}
-

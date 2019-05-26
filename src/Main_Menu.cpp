@@ -36,10 +36,6 @@ void print_menu(const int total_buffer_width){
     std::cout << std::setw(total_buffer_width/space_divider) << " " << "Select Your Choice :=> ";
 }
 
-void print_success_and_menu(const int total_buffer_width){
-    display_message_and_menu("########### Successfully completed task! ###########", total_buffer_width);
-}
-
 std::string get_input(){
     std::string users_input{};
     std::getline(std::cin, users_input);

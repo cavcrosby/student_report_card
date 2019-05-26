@@ -10,7 +10,7 @@
 
 void print_ruler();
 void print_menu(const int total_buffer_width);
-void print_success_and_menu(const int total_buffer_width);
+
 std::string get_input();
 
 // overloaded valid_input method for when creating student record objects?
