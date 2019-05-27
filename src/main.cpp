@@ -25,7 +25,7 @@ int main() {
 
     ClearScreen();
     std::cout << "Thank you for using my program!" << std::endl;
-    std::cout << "Comments can be emailed to: <recipient>@<email>.com" << std::endl;
+    std::cout << "Comments can be emailed to: <recipient>@<email>.com " << std::endl;
     std::cout << std::endl;
     std::cout << "Enter any key to exit..." << std::endl;
     std::getline(std::cin, exit_key);
