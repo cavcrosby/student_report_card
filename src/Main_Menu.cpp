@@ -2,8 +2,8 @@
 #include <iomanip>
 #include <string>
 #include <sstream>
-#include <windows.h>
 #include <cctype>
+#include <windows.h>
 #include "Handling.h"
 #include "Main_Menu.h"
 
@@ -58,7 +58,7 @@ bool is_valid_input(const std::string &users_input, const int total_buffer_width
     return true;
 }
 
-bool select_option(const std::string &input, const int total_buffer_width, std::vector<Student_Record> &student_records){
+bool select_option(const std::string &input, const int total_buffer_width, std::list<Student_Record> &student_records){
     switch(std::stoi(input)){
         case 1:
             ClearScreen();
@@ -85,15 +85,17 @@ bool select_option(const std::string &input, const int total_buffer_width, std::
             print_success_and_menu(total_buffer_width);
             return false;
         case 5: {
-            std::string student_record_number{student_record_number_input()};
+            const std::string student_record_number{student_record_number_input()};
             if(!modify_student_grade(student_records, total_buffer_width, student_record_number)){ return false;}
             print_success_and_menu(total_buffer_width);
             return false;
         }
-        case 6:
-            std::string student_record_number{student_record_number_input()};
+        case 6: {
+            const std::string student_record_number{student_record_number_input()};
+            if(!delete_student_record(student_records, total_buffer_width, student_record_number)) { return false;}
             print_success_and_menu(total_buffer_width);
             return false;
+        }
         default:
             return true;
     }

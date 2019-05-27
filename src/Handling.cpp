@@ -1,18 +1,18 @@
-#include <windows.h>
 #include <sstream>
 #include <string>
 #include <iostream>
 #include <iomanip>
 #include <map>
-#include <vector>
+#include <list>
 #include <cctype>
 #include <algorithm>
-#include <Main_Menu.h>
+#include <windows.h>
+#include "Main_Menu.h"
 #include "Handling.h"
 
-bool creating_student_object(std::vector<Student_Record> &student_records) {
+bool creating_student_object(std::list<Student_Record> &student_records) {
     bool done{false};
-    std::vector<char> valid_grades{'A', 'B', 'C', 'D', 'F', 'N'};
+    std::list<char> valid_grades{'A', 'B', 'C', 'D', 'F', 'N'};
     std::string fname{};
     std::string lname{};
     while(!done){
@@ -52,7 +52,7 @@ bool creating_student_object(std::vector<Student_Record> &student_records) {
 
 // creates subject keys then to be mapped with a grade in map DS
 std::map<const std::string, char> create_grade_book() {
-    std::vector<std::string> subjects{
+    std::list<std::string> subjects{
             "Physics",
             "Chemistry",
             "Math",
@@ -67,21 +67,21 @@ std::map<const std::string, char> create_grade_book() {
     return grade_book;
 }
 
-bool is_input_grade_valid(const std::string &grade, const std::vector<char> &valid_grades) {
+bool is_input_grade_valid(const std::string &grade, const std::list<char> &valid_grades) {
     char input{grade.at(0)};
     return (std::isalpha(input) && grade.size() == 1 &&
             (std::find(valid_grades.begin(), valid_grades.end(), std::toupper(input)) != valid_grades.end()));
 }
 
-bool is_container_empty_or_we_cannot_find_student(const std::vector<Student_Record> &vec, const int total_buffer_width,
+bool is_student_records_empty_or_we_cannot_find_student(const std::list<Student_Record> &student_records, const int total_buffer_width,
         const std::string &particular_student){
-    if (vec.empty()) {
-        display_message_and_menu("########### There are no student records to modify... ###########",
+    if (student_records.empty()) {
+        display_message_and_menu("########### There are no student records to modify/delete... ###########",
                                  total_buffer_width);
         return true;
     }
-    auto found_it{std::find(vec.begin(), vec.end(), particular_student)};
-    if (found_it == vec.end()) {
+    auto found_it{std::find(student_records.begin(), student_records.end(), particular_student)};
+    if (found_it == student_records.end()) {
         display_message_and_menu(
                 "########### Could not find student record, please make sure you have entered in the right roll number ###########",
                 total_buffer_width);
@@ -91,19 +91,19 @@ bool is_container_empty_or_we_cannot_find_student(const std::vector<Student_Reco
     return false;
 }
 
-bool display_student_records(const std::vector<Student_Record> &vec, const int total_buffer_width,
+bool display_student_records(const std::list<Student_Record> &student_records, const int total_buffer_width,
                              bool with_roll_number,
                              std::string particular_student){
-    if(vec.empty()){
+    if(student_records.empty()){
         display_message_and_menu("########### There are no student records to print... ###########", total_buffer_width);
         return false;
     }
-    std::vector<Student_Record> iterate_over {vec};
+    std::list<Student_Record> iterate_over {student_records};
     const int title_space_divider {3};
     int space_between_sub_grade {12};
     if(particular_student != "All") {
-        auto found_it {std::find(vec.begin(), vec.end(), particular_student)};
-        if (found_it == vec.end()){
+        auto found_it {std::find(student_records.begin(), student_records.end(), particular_student)};
+        if (found_it == student_records.end()){
             display_message_and_menu(
                     "########### Could not find student record, please make sure you have entered in the right roll number ###########",
                     total_buffer_width);
@@ -184,22 +184,22 @@ void ClearScreen()
     SetConsoleCursorPosition( hStdOut, homeCoords );
 }
 
-bool delete_student_record(const std::vector<Student_Record> &vec, const int total_buffer_width, const std::string &particular_student){
-    if (is_container_empty_or_we_cannot_find_student(vec, total_buffer_width, particular_student)) {
+bool delete_student_record(std::list<Student_Record> &student_records, const int total_buffer_width, const std::string &particular_student){
+    if (is_student_records_empty_or_we_cannot_find_student(student_records, total_buffer_width, particular_student)) {
         return false;
     }
-    auto found_it{std::find(vec.begin(), vec.end(), particular_student)};
-    // TODO SWAP VECTOR FOR A LIST?
-
+    auto found_it{std::find(student_records.begin(), student_records.end(), particular_student)};
+    student_records.erase(found_it);
+    return true;
 }
 
-bool modify_student_grade(std::vector<Student_Record> &vec, const int total_buffer_width,
+bool modify_student_grade(std::list<Student_Record> &student_records, const int total_buffer_width,
                           const std::string &particular_student) {
-    std::vector<char> valid_grades{'A', 'B', 'C', 'D', 'F', 'N'};
-    if (is_container_empty_or_we_cannot_find_student(vec, total_buffer_width, particular_student)) {
+    std::list<char> valid_grades{'A', 'B', 'C', 'D', 'F', 'N'};
+    if (is_student_records_empty_or_we_cannot_find_student(student_records, total_buffer_width, particular_student)) {
         return false;
     }
-    auto found_it{std::find(vec.begin(), vec.end(), particular_student)};
+    auto found_it{std::find(student_records.begin(), student_records.end(), particular_student)};
     auto &grade_book{found_it->get_grade_book()};
     bool done{false};
     std::string subject{};
@@ -207,7 +207,7 @@ bool modify_student_grade(std::vector<Student_Record> &vec, const int total_buff
         std::cout << "Enter the subject whose student's grade you wish to change: ";
         std::getline(std::cin, subject);
         if (grade_book.find(subject) == grade_book.end()) {
-            std::cout << "!!! Student is not taking the enter subject, please try again..." << std::endl;
+            std::cout << "!!! Student is not taking the entered subject, please try again..." << std::endl;
             continue;
         }
         done = true;

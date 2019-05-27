@@ -2,13 +2,13 @@
 #include <iomanip>
 #include <string>
 #include <sstream>
-#include <vector>
+#include <list>
 #include <windows.h>
 #include "Main_Menu.h"
 #include "Handling.h"
 
 int main() {
-    std::vector<Student_Record> student_records{};
+    std::list<Student_Record> student_records{};
     const int total_buffer_width {120}; // 120 is the default for cmd, might look into other default terminal widths
     bool done {false};
     std::string exit_key {};

@@ -1,11 +1,11 @@
+#pragma once
 #ifndef STUDENT_REPORT_CARD_STUDENT_RECORD_H
 #define STUDENT_REPORT_CARD_STUDENT_RECORD_H
-
-#pragma once
 
 
 #include <string>
 #include <map>
+#include <list>
 
 class Student_Record {
 private:
@@ -26,6 +26,5 @@ public:
     std::string &get_lname();
     std::map<const std::string, char> &get_grade_book();
 };
-
 
 #endif //STUDENT_REPORT_CARD_STUDENT_RECORD_H
