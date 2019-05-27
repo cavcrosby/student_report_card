@@ -14,8 +14,6 @@ This terminal application would be geared towards teachers/administrators of stu
 ## Future Features Ideas
 For each record created, that is not deleted before the program terminates, could be stored as a text file in a directory. When the user reopens the application, the application will be able to load the existing text files for the user to display. 
 
-*(**This may change as progress on the project continues**)*
-
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 
