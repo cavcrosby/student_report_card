@@ -4,14 +4,17 @@
 
 # Building
 
-1. CMake (https://cmake.org/)
-2. With the project being small in scope. Any build tool can be used, I will write if otherwise.
+1. CMake (https://cmake.org/) (v. 3.3.14)
+2. With the project being small in scope (and not sophisticated). Any other build tool can be used, I will write if otherwise.
 
 ## Usage/Description
 
-This terminal application would be geared towards teachers/administrators of students' records. I envision that for each record created, a new text file will also be generated in another directory once the program finishes storing the object's data. When that individual re-opens the program, every text-file is read and stored into a data-structure so the individual using the application is aware of all the records that exist.
+This terminal application would be geared towards teachers/administrators of students' records. Student records contain students' grades in Physics, Chemistry, Math, English, and Biology along with a record number that uniquely identifies a student. These records can be printed out as report cards to the terminal, records can also be modified or deleted.
 
 *(**This may change as progress on the project continues**)*
+
+## Future Features Ideas
+For each record created, that is not deleted before the program terminates, could be stored as a text file in a directory. When the user reopens the application, the application will be able to load the existing text files for the user to display. 
 
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
