@@ -52,19 +52,19 @@ bool creating_student_object(std::vector<Student_Record> &student_records) {
 
 // creates subject keys then to be mapped with a grade in map DS
 std::map<const std::string, char> create_grade_book() {
-    std::vector<std::string> keys{
+    std::vector<std::string> subjects{
             "Physics",
             "Chemistry",
             "Math",
             "English",
             "Biology"};
-    std::map<const std::string, char> subject_and_grades{};
-    auto key_it = keys.begin();
-    while (key_it != keys.end()) {
-        subject_and_grades.insert(std::make_pair(*key_it, NULL)); // use null or not?
-        key_it++;
+    std::map<const std::string, char> grade_book{};
+    auto subject_it = subjects.begin();
+    while (subject_it != subjects.end()) {
+        grade_book.insert(std::make_pair(*subject_it, NULL)); // use null or not?
+        subject_it++;
     }
-    return subject_and_grades;
+    return grade_book;
 }
 
 bool is_input_grade_valid(const std::string &grade, const std::vector<char> &valid_grades) {
@@ -189,6 +189,7 @@ bool delete_student_record(const std::vector<Student_Record> &vec, const int tot
         return false;
     }
     auto found_it{std::find(vec.begin(), vec.end(), particular_student)};
+    // TODO SWAP VECTOR FOR A LIST?
 
 }
 
