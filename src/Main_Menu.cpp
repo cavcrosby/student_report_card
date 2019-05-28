@@ -39,6 +39,7 @@ std::string get_input(){
 }
 
 bool is_valid_input(const std::string &users_input, const int total_buffer_width){
+    // Valid input should be a single digit that is not negative, not greater the current number of options, and is of size_t type.
     if(users_input.empty()){
         display_message_and_menu("########### No input was entered! Please try again ###########", total_buffer_width);
         return false;
@@ -62,7 +63,7 @@ bool select_option(const std::string &input, const int total_buffer_width, std::
     switch(std::stoi(input)){
         case 1:
             ClearScreen();
-            if(!creating_student_object(student_records)){
+            if(!create_student_object(student_records)){
                 std::cout << "Something went wrong..." << std::endl; // TODO FIX ERROR HANDLING OR IMPROVE IT?
                 return true;
             }

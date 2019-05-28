@@ -9,7 +9,7 @@
 
 int main() {
     std::list<Student_Record> student_records{};
-    const int total_buffer_width {120}; // 120 is the default for cmd, might look into other default terminal widths
+    const int total_buffer_width {120}; // 120 is the default (at least this is assumed)
     bool done {false};
     std::string exit_key {};
     print_menu(total_buffer_width);

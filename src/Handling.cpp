@@ -10,7 +10,7 @@
 #include "Main_Menu.h"
 #include "Handling.h"
 
-bool creating_student_object(std::list<Student_Record> &student_records) {
+bool create_student_object(std::list<Student_Record> &student_records) {
     bool done{false};
     std::list<char> valid_grades{'A', 'B', 'C', 'D', 'F', 'N'};
     std::string fname{};
@@ -29,13 +29,13 @@ bool creating_student_object(std::list<Student_Record> &student_records) {
         done = true;
     }
     auto grade_book{create_grade_book()};
-    auto book_it{grade_book.begin()};
+    auto grade_book_it{grade_book.begin()};
     // gets input on grades, validates, then inserts grade into previously created map DS
     std::cout
             << "For the following subjects, type in the student's letter grade (A-D, or F). If the student does not have a grade for the class, insert an N"
             << std::endl;
-    while (book_it != grade_book.end()) {
-        std::cout << "Enter a grade for " << book_it->first << " : ";
+    while (grade_book_it != grade_book.end()) {
+        std::cout << "Enter a grade for " << grade_book_it->first << " : ";
         std::string grade{};
         std::getline(std::cin, grade);
         if (grade.empty() || !is_input_grade_valid(grade, valid_grades)) {
@@ -43,14 +43,13 @@ bool creating_student_object(std::list<Student_Record> &student_records) {
                       << std::endl;
             continue;
         }
-        grade_book[book_it->first] = std::toupper(grade.at(0));
-        book_it++;
+        grade_book[grade_book_it->first] = std::toupper(grade.at(0));
+        grade_book_it++;
     }
     student_records.emplace_back(fname, lname, grade_book);
     return true;
 }
 
-// creates subject keys then to be mapped with a grade in map DS
 std::map<const std::string, char> create_grade_book() {
     std::list<std::string> subjects{
             "Physics",
@@ -61,13 +60,14 @@ std::map<const std::string, char> create_grade_book() {
     std::map<const std::string, char> grade_book{};
     auto subject_it = subjects.begin();
     while (subject_it != subjects.end()) {
-        grade_book.insert(std::make_pair(*subject_it, NULL)); // use null or not?
+        grade_book.insert(std::make_pair(*subject_it, NULL)); // null can be another value
         subject_it++;
     }
     return grade_book;
 }
 
 bool is_input_grade_valid(const std::string &grade, const std::list<char> &valid_grades) {
+    // Valid grade input should be a single character that is a letter and found to be a valid character in valid_grades (non-case sensitive)
     char input{grade.at(0)};
     return (std::isalpha(input) && grade.size() == 1 &&
             (std::find(valid_grades.begin(), valid_grades.end(), std::toupper(input)) != valid_grades.end()));
@@ -98,9 +98,10 @@ bool display_student_records(const std::list<Student_Record> &student_records, c
         display_message_and_menu("########### There are no student records to print... ###########", total_buffer_width);
         return false;
     }
+    // Depending on the parameters, you can print student records w/wo student roll number, or a single student's grade can be printed out
     std::list<Student_Record> iterate_over {student_records};
     const int title_space_divider {3};
-    int space_between_sub_grade {12};
+    const int space_between_sub_grade {12};
     if(particular_student != "All") {
         auto found_it {std::find(student_records.begin(), student_records.end(), particular_student)};
         if (found_it == student_records.end()){
@@ -115,10 +116,10 @@ bool display_student_records(const std::list<Student_Record> &student_records, c
     auto it{iterate_over.begin()};
     while (it != iterate_over.end()) { // we have a record of a student
         std::string title{"===== " + it->get_fname() + " " + it->get_lname() + "'s REPORT CARD ===== "};
-        unsigned int subject_label_start{((total_buffer_width - title.size())/title_space_divider)};
+        unsigned int space_for_title{((total_buffer_width - title.size())/title_space_divider)};
 
-        std::cout << std::setw(subject_label_start) << " " << title << std::endl;
-        std::cout << std::setw(subject_label_start) << " " << ((with_roll_number) ? ("Roll #: " + std::to_string(it->get_student_roll_number())) : std::string("")) << std::endl; // display_message_and_menu will be the same, just with or without roll number
+        std::cout << std::setw(space_for_title) << " " << title << std::endl;
+        std::cout << std::setw(space_for_title) << " " << ((with_roll_number) ? ("Roll #: " + std::to_string(it->get_student_roll_number())) : std::string("")) << std::endl; // display_message_and_menu will be the same, just with or without roll number
         const std::map<const std::string, char> &grade_book {it->get_grade_book()};
         for(auto &subject: grade_book) { // here is where we go through their grade book
             std::cout << std::left << std::setw(space_between_sub_grade) << subject.first  << subject.second << std::endl;

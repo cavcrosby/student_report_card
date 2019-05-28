@@ -10,7 +10,7 @@
 #include "Student_Record.h"
 #include "Main_Menu.h"
 
-bool creating_student_object(std::list<Student_Record> &student_records);
+bool create_student_object(std::list<Student_Record> &student_records);
 std::map<const std::string, char> create_grade_book();
 bool is_input_grade_valid(const std::string &grade, const std::list<char> &valid_grades);
 bool is_student_records_empty_or_we_cannot_find_student(const std::list<Student_Record> &student_records, const int total_buffer_width,
