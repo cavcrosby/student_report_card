@@ -48,7 +48,7 @@ bool is_valid_input(const std::string &users_input, const int total_buffer_width
     unsigned int answer_width {users_input.length()};
     size_t value {};
     std::istringstream iss{users_input};
-    while(answer_width > 0) {
+    while(answer_width > 0) { // to stop input such as '6-'
         bool valid{iss >> value};
         if (!valid || value <= 0 || value > total_num_options) {
             display_message_and_menu("########### Invalid input, please try again ###########", total_buffer_width);
