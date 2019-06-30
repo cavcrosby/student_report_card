@@ -121,7 +121,7 @@ bool display_student_records(const std::list<Student_Record> &student_records, c
         std::cout << std::setw(space_for_title) << " " << title << std::endl;
         std::cout << std::setw(space_for_title) << " " << ((with_roll_number) ? ("Roll #: " + std::to_string(it->get_student_roll_number())) : std::string("")) << std::endl; // display_message_and_menu will be the same, just with or without roll number
         const std::map<const std::string, char> &grade_book {it->get_grade_book()};
-        for(auto &subject: grade_book) { // here is where we go through their grade book
+        for(auto &subject: grade_book) {
             std::cout << std::left << std::setw(space_between_sub_grade) << subject.first  << subject.second << std::endl;
         }
 
