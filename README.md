@@ -9,7 +9,7 @@
 
 ## Usage/Description
 
-This terminal application would be geared towards teachers/administrators of students' records. Student records contain students' grades in Physics, Chemistry, Math, English, and Biology along with a record number that uniquely identifies a student. These records can be printed out as report cards to the terminal, records can also be modified or deleted.
+This terminal application would be geared towards teachers/administrators of students' records. Student records contain students' grades in Physics, Chemistry, Math, English, and Biology along with a record number that uniquely identifies a student. These records can be printed out as report cards to the terminal, records can also be modified and deleted.
 
 *(**This may change as progress on the project continues**)*
 
