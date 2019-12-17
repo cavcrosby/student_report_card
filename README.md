@@ -4,8 +4,7 @@
 
 # Building
 
-1. CMake (https://cmake.org/) (v. 3.3.14)
-2. With the project being small in scope (and not sophisticated). Any other build tool can be used, I will write if otherwise.
+1. CMake (https://cmake.org/) (v. 3.3.14) text is provided to construct makefile(s). Feel free to use the generator (build system) of your choice.
 
 ## Usage/Description
 

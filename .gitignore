@@ -1,0 +1,7 @@
+#ignore editor configs
+*.idea
+*.vscode
+
+#ignore build
+build
+_build

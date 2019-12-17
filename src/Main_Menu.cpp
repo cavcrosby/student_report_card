@@ -45,7 +45,7 @@ bool is_valid_input(const std::string &users_input, const int total_buffer_width
         return false;
     }
     const int total_num_options {7};
-    unsigned int answer_width {users_input.length()};
+    unsigned long long int answer_width {users_input.length()};
     size_t value {};
     std::istringstream iss{users_input};
     while(answer_width > 0) { // to stop input such as '6-'

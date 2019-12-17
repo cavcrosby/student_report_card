@@ -116,7 +116,7 @@ bool display_student_records(const std::list<Student_Record> &student_records, c
     auto it{iterate_over.begin()};
     while (it != iterate_over.end()) { // we have a record of a student
         std::string title{"===== " + it->get_fname() + " " + it->get_lname() + "'s REPORT CARD ===== "};
-        unsigned int space_for_title{((total_buffer_width - title.size())/title_space_divider)};
+        unsigned long long int space_for_title{((total_buffer_width - title.size())/title_space_divider)};
 
         std::cout << std::setw(space_for_title) << " " << title << std::endl;
         std::cout << std::setw(space_for_title) << " " << ((with_roll_number) ? ("Roll #: " + std::to_string(it->get_student_roll_number())) : std::string("")) << std::endl; // display_message_and_menu will be the same, just with or without roll number
