@@ -3,5 +3,5 @@
 *.vscode
 
 #ignore build
-build
-_build
+\build
+\_build
