@@ -18,7 +18,7 @@ For each record created, that is not deleted before the program terminates, coul
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 
-If you have any suggestions on what I can add to this page or to the project, send me an [email](https://github.com/reap2sow) and lets talk.
+If you have any suggestions on what I can add to this page or to the project, send me an [email](https://github.com/reap2sow1) and lets talk.
 
 ## License
 
